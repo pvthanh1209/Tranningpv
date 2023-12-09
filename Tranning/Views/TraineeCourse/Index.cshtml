@@ -1,0 +1,46 @@
+﻿@model List<Tranning.Models.TraneeCourseMapping>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h4 class="display-6">List Trainner Course</h4>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("CreateOrEdit","TraineeCourse")">Add Trainee</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>COURSE NAME</th>
+                <th>FULL NAME</th>
+                <th>CREATED AT</th>
+                <th>UPDATED AT</th>
+                <th colspan="2" width="5%">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.trainee_id</td>
+                        <td>@item.courseName</td>
+                        <td>@item.fullName</td>
+                        <td>@item.created_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.updated_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+
+                        <td>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("CreateOrEdit","TraineeCourse", new { id = @item.trainee_id })">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Delete","TraineeCourse", new { id = @item.trainee_id })">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

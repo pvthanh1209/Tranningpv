@@ -1,0 +1,81 @@
+﻿@model List<Tranning.Models.TopicMapping>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h4 class="display-6">List Topic</h4>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Add","Topic")">Add Topic</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>COURSE NAME</th>
+                <th>NAME</th>
+                <th>DESCRIPTION</th>
+                <th>STATUS</th>
+                <th>VIDEOS</th>
+                <th>DOCUMENTS</th>
+                <th>ATTACH FILE</th>
+                <th>CREATED AT</th>
+                <th>UPDATED AT</th>
+                <th colspan="2" width="5%">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.CourseName</td>
+                        <td>@item.name</td>
+                        <td>@item.description</td>
+                        <td>@item.status</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.videos))
+                            {
+                                if (item.videos.ToLower().IndexOf("mp4") > 0)
+                                {
+                                    <video controls width="200" height="100">
+                                        <source src="/uploads/videos/@item.videos">
+                                    </video>
+                                }
+                                else
+                                {
+                                    <img class="img-fluid" src="/uploads/videos/@item.videos" width="50" height="50" />
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.documents))
+                            {
+                                <a href="/uploads/images/@item.documents" download>Tài liệu (Download)</a>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.attach_file))
+                            {
+                                <img class="img-fluid" src="/uploads/images/@item.attach_file" />
+                            }
+                        </td>
+                        <td>@item.created_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.updated_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+
+                        <td>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("Update","Topic", new { id = @item.id })">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Delete","Topic", new { id = @item.id })">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

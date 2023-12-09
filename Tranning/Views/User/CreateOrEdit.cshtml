@@ -1,0 +1,103 @@
+﻿@model Tranning.DataDBContext.Users
+@{
+    ViewData["Title"] = "CreateOrEdit";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    string titleU = string.Empty;
+    @if(Model.id > 0)
+    {
+        titleU = "Update Trainner";
+    }
+    else
+    {
+        titleU = "Add New Trainner";
+    }
+}
+<div class="row vh-100">
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>@titleU</h5>
+            </div>
+            <div class="card-body">
+                <form enctype="multipart/form-data" asp-controller="User" asp-action="CreateOrEdit" method="post" asp-validation-summary="All">
+                    <input type="hidden" asp-for="id" />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @if (ViewBag.Error != null)
+                                {
+                                    <span class="text-danger">@ViewBag.Error</span>
+                                }
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                    
+                            <div class="form-group">
+                                <label asp-for="extra_code">Extra code</label>
+                                <input type="text" asp-for="extra_code" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="username">User Name</label>
+                                <input type="text" asp-for="username" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="password">Password</label>
+                                <input type="password" asp-for="password" class="form-control" />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="full_name">Full Name</label>
+                                <input type="text" asp-for="full_name" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="email">Email</label>
+                                <input type="text" asp-for="email" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="phone">Phone</label>
+                                <input type="text" asp-for="phone" class="form-control" required/>
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="extra_code">Address</label>
+                                <input type="text" asp-for="address" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="gender">Gender</label>
+                                <select class="form-control" asp-for="gender">
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="birthday">Brith Day</label>
+                                <input type="date" asp-for="birthday" class="form-control" value="@((Model != null && Model.birthday != null) ? Model.birthday.Value.ToString("yyyy-MM-dd") : null)" />
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="type" value="1" />
+                        <div class="sm-12 col-md-12">
+                            <button class="btn btn-primary my-3" type="submit">Save</button>
+                            <a class="btn btn-info ms-3 mb-0" href="@Url.Action("Index","User")">Back to lists</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

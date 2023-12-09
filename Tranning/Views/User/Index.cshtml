@@ -1,0 +1,65 @@
+﻿@model List<Tranning.DataDBContext.Users>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h4 class="display-6">List Trainee</h4>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("CreateOrEdit","User")">Add Trainee</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>USERNAME</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>PHONE</th>
+                <th>ADDRESS</th>
+                <th>GENDER</th>
+                <th>BIRTHDAY</th>
+                <th>CREATED AT</th>
+                <th>UPDATED AT</th>
+                <th colspan="2" width="5%">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.extra_code</td>
+                        <td>@item.username</td>
+                        <td>@item.full_name</td>
+                        <td>@item.email</td>
+                        <td>@item.phone</td>
+                        <td>@item.address</td>
+                        <td>
+                            @if(item.gender == 0)
+                            {
+                                <p>Male</p>
+                            }
+                            else
+                            {
+                                <p>Female</p>
+                            }
+                        </td>
+                        <td>@item.birthday?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.created_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.updated_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+
+                        <td>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("CreateOrEdit","User", new { id = @item.id })">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Delete","User", new { id = @item.id })">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

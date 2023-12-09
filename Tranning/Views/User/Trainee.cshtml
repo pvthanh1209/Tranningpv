@@ -1,0 +1,83 @@
+﻿@model List<Tranning.DataDBContext.Users>
+@{
+    ViewData["Title"] = "Trainne";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h4 class="display-6">List Trainee</h4>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("CreateOrEditTraniee","User")">Add Trainee</a>
+
+        <form asp-action="Trainee" asp-controller="User" method="get">
+            <div class="form-actions no-color">
+                <p class="mb-0">
+                    Find : <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <button type="submit" class="btn btn-primary btn-sm mb-0">Search</button>
+                    <a asp-action="Trainee" asp-controller="User"> Back to full list</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>USERNAME</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>PHONE</th>
+                <th>ADDRESS</th>
+                <th>GENDER</th>
+                <th>BIRTHDAY</th>
+                <th>EDUCATION</th>
+                <th>Programming Language</th>
+                <th>Toeic Score</th>
+                <th>Experience</th>
+                <th>Department</th>
+                <th>CREATED AT</th>
+                <th>UPDATED AT</th>
+                <th colspan="2" width="5%">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.extra_code</td>
+                        <td>@item.username</td>
+                        <td>@item.full_name</td>
+                        <td>@item.email</td>
+                        <td>@item.phone</td>
+                        <td>@item.address</td>
+                        <td>
+                            @if (item.gender == 0)
+                            {
+                                <p>Male</p>
+                            }
+                            else
+                            {
+                                <p>Female</p>
+                            }
+                        </td>
+                        <td>@item.birthday?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.education</td>
+                        <td>@item.programming_language</td>
+                        <td>@item.toeic_score</td>
+                        <td>@item.experience</td>
+                        <td>@item.department</td>
+                        <td>@item.created_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@item.updated_at?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="@Url.Action("CreateOrEditTraniee","User", new { id = @item.id })">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteTrainee","User", new { id = @item.id })">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
